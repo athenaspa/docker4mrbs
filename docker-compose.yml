@@ -1,0 +1,36 @@
+version: '2'
+services:
+  web:
+    container_name: mrbs_web
+    image: mrbs:latest
+    restart: always
+    build: "./"
+    ports:
+      - "80:80"
+    depends_on:
+      - dbserver
+    links:
+      - dbserver
+    volumes:
+      - "./localstack/htdocs:/var/www/html"
+    environment:
+      APACHE_DOCUMENT_ROOT: mrbs/web/
+
+  dbserver:
+    container_name: mrbs_db
+    image: mariadb:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes_from:
+      - dbdata
+    environment:
+      MYSQL_DATABASE: mrbs
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: mrbs_usr
+      MYSQL_PASSWORD: mrbs_pwd
+
+  dbdata:
+    image: tianon/true
+    volumes:
+      - "./localstack/dbdata:/var/lib/mysql"
