@@ -13,7 +13,7 @@ install docker-compose:
 install git:  
 cfr https://git-scm.com/download/linux 
 
-    git clone git@github.com:erighetto/docker4mrbs.git 
+    git clone git@github.com:athenaspa/docker4mrbs.git 
 
 # Start containers
     cd docker4mrbs
